@@ -1,72 +1,83 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient';
 
 const HomeScreen = () => {
   return (
-    <View style={styles.container}>
-      {/* Top Bar */}
+    <LinearGradient
+      colors={['#50020A', '#000000']}
+      style={styles.container}
+    >
+
       <View style={styles.header}>
         <TouchableOpacity>
           <Icon name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.title}>Recordings</Text>
         <TouchableOpacity>
-          <Icon name="add" size={24} color="black" />
+          <Icon name="add" size={24} color="black"  />
         </TouchableOpacity>
       </View>
 
-      {/* Audio Levels */}
-      <View style={styles.audioContainer}>
-        <View style={styles.volumeBar}>
-          <Text style={styles.volumeText}>75</Text>
-          <Text style={styles.volumeText}>50</Text>
-          <Text style={styles.volumeText}>25</Text>
-          <Text style={styles.volumeText}>00</Text>
-        </View>
 
-        {/* Progress Bar */}
-        <View style={styles.progressContainer}>
-          <View style={styles.progressBar}>
-            <View style={styles.progress} />
+      <View style={styles.audioContainer}>
+        <View style={styles.volumeBarContainer}>
+          <View style={styles.volumeBar}>
+            <Text style={styles.volumeText}>75</Text>
+            <Text style={styles.volumeText}>50</Text>
+            <Text style={styles.volumeText}>25</Text>
+            <Text style={styles.volumeText}>00</Text>
           </View>
-          <View style={styles.timeContainer}>
-            <Text style={styles.time}>00:00</Text>
-            <Text style={styles.time}>01:00</Text>
+          <View style={styles.verticalLine} />
+        </View>
+      </View>
+
+
+      <View style={styles.progressContainer}>
+        <View style={styles.progressBar}>
+          <View style={styles.progress}>
+
+            <View style={styles.progressThumb} />
           </View>
+        </View>
+        <View style={styles.timeContainer}>
+          <Text style={styles.time}>00:00</Text>
+          <Text style={styles.time}>01:00</Text>
         </View>
       </View>
 
       {/* Control Buttons */}
       <View style={styles.controlsContainer}>
         <TouchableOpacity style={styles.cancelButton}>
-          <Icon name="close" size={32} color="white" />
+          <Icon name="close" size={28} color="white" />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.pauseButton}>
-          <Icon name="pause" size={32} color="white" />
+          <Icon name="pause" size={35} color="white" />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.checkButton}>
-          <Icon name="checkmark" size={32} color="white" />
+          <Icon name="checkmark" size={28} color="white" />
         </TouchableOpacity>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#450000',
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
+    marginTop: 40, // Added margin on top for the header
+    padding: 12,
     backgroundColor: '#fff',
+    opacity: 0.8,
+    paddingHorizontal: 20
   },
   title: {
     fontSize: 18,
@@ -74,36 +85,60 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   audioContainer: {
-    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: 20, // Adjusted for positioning
+  },
+  volumeBarContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
   volumeBar: {
     justifyContent: 'space-between',
-    alignItems: 'center',
-    height: '60%',
+    alignItems: 'flex-end',
+    marginLeft: 20, // Margin added to the left
+    height: 220,
   },
   volumeText: {
-    color: 'white',
-    fontSize: 16,
+    color: 'rgba(255, 255, 255, 1)',
+    fontSize: 10,
+    marginBottom: 10, // Reduced gap between text items
+  },
+  verticalLine: {
+    width: 0.3,
+    height: 200,
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    marginLeft: 10, // Adjust line position
   },
   progressContainer: {
-    flex: 1,
+    marginTop: 20, // Added margin to separate from audio section
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between'
   },
   progressBar: {
-    height: 2,
-    width: '80%',
-    backgroundColor: 'white',
-    borderRadius: 4,
-    marginBottom: 8,
+    height: 0.4,
+    width: '85%',
+    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    borderRadius: 0.5,
+    marginBottom: 15,
+    position: 'relative', // To position the thumb within the progress
   },
   progress: {
     height: '100%',
-    width: '20%',
-    backgroundColor: 'red',
+    width: '10%', // Assuming 20% progress is shown
+    backgroundColor: 'brown',
+    borderRadius: 2,
+    position: 'relative',
+  },
+  progressThumb: {
+    position: 'absolute',
+    right: 0, // Align the thumb at the end of the progress bar
+    width: 12,
+    height: 12,
+    backgroundColor: 'brown',
+    borderRadius: 6, // Makes the circle
+    top: -5.5, // Center the thumb with the progress bar
   },
   timeContainer: {
     flexDirection: 'row',
@@ -112,28 +147,32 @@ const styles = StyleSheet.create({
   },
   time: {
     color: 'white',
-    fontSize: 16,
+    fontSize: 10,
   },
   controlsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingVertical: 20,
+    marginTop: 30, // Positioned controls closer to the center
+    marginHorizontal: 40
   },
   cancelButton: {
-    backgroundColor: 'rgba(255, 0, 0, 0.6)',
-    padding: 20,
-    borderRadius: 50,
+    backgroundColor: '#50020A',
+    padding: 5,
+    borderRadius: 30,
+    opacity: 0.8
   },
   pauseButton: {
-    backgroundColor: 'red',
-    padding: 20,
+    backgroundColor: 'brown',
+    padding: 8,
     borderRadius: 50,
   },
   checkButton: {
-    backgroundColor: 'rgba(0, 255, 0, 0.6)',
-    padding: 20,
-    borderRadius: 50,
+    backgroundColor: '#50020A',
+    padding: 5,
+    borderRadius: 30,
+    opacity: 0.8
   },
 });
 
